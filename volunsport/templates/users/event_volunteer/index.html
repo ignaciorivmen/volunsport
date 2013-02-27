@@ -1,0 +1,14 @@
+{% extends "base_index.html" %}
+
+{% block content %}
+{% if exp_list %}
+        <ul>
+        {% for exp in exp_list %}
+                <li><a href="/experiences/{{exp.id}}">Voluntario: {{ exp.volunteer }} Evento: {{exp.event}} {{exp.id}}</a>
+		<li>{{exp.experience}}</li></li>
+        {% endfor %}
+        </ul>
+{% else %}
+        <p>No volunteers are aviable.</p>
+{% endif %}
+{% endblock %}

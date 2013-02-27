@@ -1,0 +1,28 @@
+{% extends "base_logged.html" %}
+
+{% block menuizq %}
+<ul>
+<li><a href="{% url orgprofile organizer.id %}">Perfil</a></li>
+<li><a href="{% url orgnexteve organizer.id %}">Próximos eventos</a></li>
+<li><a href="{% url orgfineve organizer.id %}">Eventos realizados</a></li>
+<li><a href="{% url regeve %}">Crear evento</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<ul>
+	<h1>{{ organizer.first_name }} </h1>
+	<li><img src="{{organizer.photo.url}}"></li>
+	<li>Dirección: {{ organizer.address }} Número: {{ organizer.number }} Planta: {{ organizer.floor }} {{ organizer.letter }}</li> 	<li>{{ organizer.city }} {{ organizer.state }} </li>
+	<li>Pais:{{ organizer.country }}</li>
+	<li>Teléfono: {{ organizer.phone_number }}</li>
+	<li>Correo electrónico: {{ organizer.email }}</li>
+	<li>Cif: {{ organizer.cif_nif }}</li>
+	<li>Razón social: {{ organizer.razon_social }} </li>
+	<li>Persona de contacto: {{ organizer.contact_person }} Teléfono personal: {{ organizer.person_phone_number }} Correo personal: {{ organizer.contact_email }}</li>
+	<li>Deporte: {{organizer.sports}}</li>
+	<li>Página web: {{ organizer.website }}</li>
+	<li>Página en facebook: {{ organizer.facebook }}</li>
+	<li>Twitter: {{ organizer.twitter }}</li>
+</ul>
+{% endblock %}

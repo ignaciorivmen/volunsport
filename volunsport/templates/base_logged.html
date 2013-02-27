@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="/media/css/style.css" type="text/css"  media="screen" />
+    <link rel="shortcut icon" href="/media/favicon.ico" type="image/x-icon" />
+    
+    <title>Volunsport / {% block title %} {% endblock %}</title>
+    
+    {% block extrahead %}
+    {% endblock %}
+</head>
+
+<body>
+<div id="wrapper">
+        <div id="head">
+            <div id="logo">
+                <a href="{% url index %}"><img src="/media/images/logo.png" alt="Volunsport"/></a>
+                <br/>
+            </div>
+            <!-- endof logo -->
+            <div id="userprofile">
+            </div>
+
+            <!-- menu -->
+            <div id="menu">
+                <ul>
+					<li><a href="{% url about %}">Sobre nosotros</a></li>
+					<li><a href="{% url events %}">Eventos</a></li>
+					<li><a href="{% url notices %}">Noticias</a></li>
+					<li><a href="{% url experiences %}">Experiencias</a></li>
+					<li><a href="{% url resources %}">Recursos</a></li>
+                </ul>
+            </div>
+            <!-- endof menu -->
+
+            <div class="clear"></div>
+
+            {% block head %}
+            {% endblock %}
+        </div>
+        <!-- endof head -->
+		<div id="menuizq">
+			{% block menuizq %}
+			{% endblock %}
+		</div>
+        <div id="content">
+                {% block content %}
+                    <div id="subcontent">
+                        {% block subcontent %}
+                        {% endblock %}
+                    </div>
+                    <!-- endof subcontent -->
+                {% endblock %}
+        </div>
+        <!-- endof content -->
+    </div>
+    <!-- endof wrapper -->
+    
+    <div id="foot">
+        <div id="footwrapper">
+            <div id="social">
+                <h2>Social</h2>
+                <ul>
+                    <li><a href="https://twitter.com/volunsport">Twitter</a></li>
+                    <li><a href="http://www.facebook.com/VolunSport">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+
+        {% block foot %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{% extends "base_index.html" %}
+{% block content %}
+
+{% if exp_list %}
+	Experiencias:
+        <ul>
+        {% for exp in exp_list %}
+                <li> Evento: {{exp.event}} <br> {{exp.experience}}</li>
+		
+        {% endfor %}
+        </ul>
+{% else %}
+        <p>No experiences are aviable.</p>
+{% endif %}
+
+{% endblock %}
+

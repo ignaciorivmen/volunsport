@@ -7,6 +7,8 @@ We will try to build a social network to connect organicers and volunteers of sp
 and give to all volunteers the oportunity of share content of their events and share their 
 cv-volunteers.
 
+Licensed by GPLv3
+
 Developers:
 * Ignacio Rivas ignaciorivmen AT gmail DOT com
 * Rafael Romero rafaelromcar AT gmail DOT com

@@ -70,5 +70,59 @@ class VolunteerTest(TestCase):
 		
 		self.assertTrue(isinstance(vol, Volunteer))
 		
+class OrganizerTest(TestCase):
+
+	def create_Organizer_userNull(self):
+		name = "Organizer1"
+		return Organizer.objects.create(name=name)
+		
+	def test_Organizer_userNull(self):
+		self.assertRaises(Exception, self.create_Organizer_userNull)
+
+	def create_Organizer(self, name):
+		user = User.objects.create(username='Organizer1', email='Organizer1@email.com')
+		org = Organizer(name=name, user = user)
+		org.save()
+		sport = Sport.objects.create(name = 'sport1')
+		org.sports.add(sport)
+		return org
+
+	def test_Organizer_nameShort(self):
+		org = self.create_Organizer("Organizer1")
+		
+		self.assertTrue(isinstance(org, Organizer))
+		self.assertEqual(org.__unicode__(), org.name)
+
+	def test_Organizer_nameLong(self):
+		self.assertRaises(Warning, self.create_Organizer, "this is a really long name , this is a really long name")
+		
+	def test_Organizer_nameNull(self):
+		self.assertRaises(Exception, self.create_Organizer, None)
+		
+	def test_Organizer_volNotNull(self):
+		org = self.create_Organizer("Organizer1")
+		userVol = User.objects.create(username='Volunteer1', email='volunteer1@email.com')
+		vol = Volunteer.objects.create(name = 'Volunteer1', user = userVol)
+		org.volunteersSubcribed.add(vol)
+		
+		self.assertTrue(isinstance(org, Organizer))
+		
+	def create_Organizer_sportNull(self):
+		user = User.objects.create(username='Organizer1', email='Organizer1@email.com')
+		org = Organizer(name="Organizer1", user = user)
+		org.save()
+		return org
+		
+	def test_Organizer_sportNull(self):
+		org = self.create_Organizer_sportNull()
+		self.assertRaises(Exception, self.create_Organizer_sportNull)		
+		
+	def test_Organizer_eventNotNull(self):
+		org = self.create_Organizer("Organizer1")
+		sport = Sport.objects.create(name = 'sport2')
+		ev = Event.objects.create(name="event1", date=datetime.date(2010, 1, 1), organizer=org)
+		ev.sports.add(sport) 
+		
+		self.assertTrue(isinstance(org, Organizer))
 		
 		

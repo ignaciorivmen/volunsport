@@ -46,7 +46,7 @@ class VolunteerTest(TestCase):
 		org = Organizer.objects.create(name = 'Organizer1', user = userOrg)
 		org.sports.add(sport)
 		vol.subcribedToOrganizer.add(org)
-		
+	
 		self.assertTrue(isinstance(vol, Volunteer))
 	
 		

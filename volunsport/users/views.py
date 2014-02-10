@@ -8,11 +8,11 @@ from django.http import Http404
 
 def volunteersIndex(request):
 	volunteer_list = Volunteer.objects.all()
-	return render_to_response('users/volunteer/index.html', {'volunteer_list': volunteer_list})
+	return render_to_response('templates/users/volunteer/index.html', {'volunteer_list': volunteer_list})
 
 def volunteerDetails(request, volunteer_id):
 	v = Volunteer.objects.get(id=volunteer_id)
-	return render_to_response('users/volunteer/details.html', {'volunteer':v})
+	return render_to_response('templates/users/volunteer/details.html', {'volunteer':v})
 
 # Organizer views
 

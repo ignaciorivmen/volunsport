@@ -14,4 +14,17 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
+    
+	url(r'^volunteers/$', 'users.views.volunteersIndex'),
+	url(r'^volunteers/(?P<volunteer_id>\d+)/$', 'users.views.volunteerDetails'),
+	url(r'^organizers/$', 'users.views.organizersIndex'),
+	url(r'^organizers/(?P<organizer_id>\d+)/$', 'users.views.organizerDetails'),
+	url(r'^events/$', 'users.views.eventsIndex'),
+	url(r'^events/(?P<event_id>\d+)/$', 'users.views.eventDetails'),
+	url(r'^sports/$', 'users.views.sportsIndex'),
+	url(r'^sports/(?P<sport_id>\d+)/$', 'users.views.sportDetails'),
+	url(r'^eventVolunteers/$', 'users.views.eventVolunteersIndex'),
+	url(r'^eventVolunteers/(?P<eventVolunteer_id>\d+)/$', 'users.views.eventVolunteerDetails'),
+    
+    
 )

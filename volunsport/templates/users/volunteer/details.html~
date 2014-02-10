@@ -1,0 +1,4 @@
+<h1>{{ volunteer.name }} {{ volunteer.surname }}</h1>
+
+E-Mail: {{ volunteer.email  }}
+<img src="{{ volunteer.photo.url  }}">

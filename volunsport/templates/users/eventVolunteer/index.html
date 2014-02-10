@@ -1,0 +1,11 @@
+{% if eventVolunteer_list %}
+        <ul>
+        {% for eventVolunteer in eventVolunteer_list %}
+                <li><a href="/eventVolunteers/{{eventVolunteer.id}}/">{{ eventVolunteer.event.name }}</a></li>
+        {% endfor %}
+        </ul>
+{% else %}
+        <p>No eventVolunteers are aviable.</p>
+{% endif %}
+
+

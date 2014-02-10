@@ -1,0 +1,11 @@
+{% if sport_list %}
+        <ul>
+        {% for sport in sport_list %}
+                <li><a href="/sports/{{sport.id}}">{{ sport.name }}</a></li>
+        {% endfor %}
+        </ul>
+{% else %}
+        <p>No sports are aviable.</p>
+{% endif %}
+
+

@@ -1,0 +1,5 @@
+<h1>{{ sport.name }}</h1>
+
+Volunteers: {{sport.volunteers}}
+Organizers: {{sport.organizers}}
+Events: {{sport.events}}

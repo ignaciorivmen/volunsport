@@ -1,0 +1,11 @@
+{% if organizer_list %}
+        <ul>
+        {% for organizer in organizer_list %}
+                <li><a href="/organizers/{{organizer.id}}/">{{ organizer.name }}</a></li>
+        {% endfor %}
+        </ul>
+{% else %}
+        <p>No organizers are aviable.</p>
+{% endif %}
+
+

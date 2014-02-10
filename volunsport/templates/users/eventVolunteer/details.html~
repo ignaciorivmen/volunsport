@@ -1,0 +1,4 @@
+<h1>{{ eventVolunteer.event.name }}</h1>
+
+Volunteers: {{sport.volunteers}}
+

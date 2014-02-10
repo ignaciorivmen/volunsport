@@ -67,6 +67,7 @@ class VolunteerTest(TestCase):
 		ev.sports.add(sport) 
 		eventvol = EventVolunteer(state="ACCEPTED", valuation=2, experience="good" , event=ev)
 		eventvol.save()
+		vol.subcribedToEvent.add(eventvol)
 		
 		self.assertTrue(isinstance(vol, Volunteer))
 		
@@ -125,4 +126,174 @@ class OrganizerTest(TestCase):
 		
 		self.assertTrue(isinstance(org, Organizer))
 		
+class EventTest(TestCase):
+
+	def create_Event(self, name):
+		sport = Sport.objects.create(name = 'sport1')
+		dat = datetime.date.today()
+		user = User.objects.create(username='Organizer1', email='Organizer1@email.com')
+		org = Organizer(name="organizer1", user = user)
+		org.save()
+		org.sports.add(sport)
+		ev = Event(name=name, organizer = org, date = dat)
+		ev.save()
+		ev.sports.add(sport)
+		return ev
+
+	def test_Event_nameShort(self):
+		ev = self.create_Event("Event1")
 		
+		self.assertTrue(isinstance(ev, Event))
+		self.assertEqual(ev.__unicode__(), ev.name)
+
+	def test_Event_nameLong(self):
+		self.assertRaises(Warning, self.create_Event, "this is a really long name , this is a really long name")
+		
+	def test_Event_nameNull(self):
+		self.assertRaises(Exception, self.create_Event, None)
+		
+	def create_Event_dateNull(self):
+		name = "Event1"
+		return Event.objects.create(name=name)
+		
+	def test_Event_dateNull(self):
+		self.assertRaises(Exception, self.create_Event_dateNull)
+		
+	def test_Event_volNotNull(self):
+		ev = self.create_Event("Event1")
+		ev.save()
+		userVol = User.objects.create(username='Volunteer1', email='volunteer1@email.com')
+		vol = EventVolunteer.objects.create(state = "AWAITING" , event = ev)
+		ev.volunteers.add(vol)
+		
+		self.assertTrue(isinstance(ev, Event))
+		
+	def create_Event_sportNull(self):
+		user = User.objects.create(username='Organizer1', email='Organizer1@email.com')
+		sport = Sport.objects.create(name = 'sport1')
+		org = Organizer(name="organizer1", user = user)
+		org.sports.add(sport)
+		org.save()
+		ev = Event(name="Event1", organizer = org)
+		ev.save()
+		return ev
+		
+	def test_Event_sportNull(self):
+		self.assertRaises(Exception, self.create_Event_sportNull)		
+		
+	def create_Event_organizerNull(self, name):
+		sport = Sport.objects.create(name = 'sport1')
+		ev = Event(name=name)
+		ev.sports.add(sport)
+		ev.save()
+		return ev	
+		
+	def test_Event_organizerNull(self):
+		self.assertRaises(Exception, self.create_Event_organizerNull)
+
+class SportTest(TestCase):
+	
+	def create_Sport(self, name):
+		spo = Sport.objects.create(name = name)
+		return spo
+
+	def test_Sport_nameShort(self):
+		spo = self.create_Sport("Sport1")
+		
+		self.assertTrue(isinstance(spo, Sport))
+		self.assertEqual(spo.__unicode__(), spo.name)
+
+	def test_Sport_nameLong(self):
+		self.assertRaises(Warning, self.create_Sport, "this is a really long name , this is a really long name")
+		
+	def test_Sport_nameNull(self):
+		self.assertRaises(Exception, self.create_Sport, None)
+				
+	def test_Sport_eventNotNull(self):
+		
+		spo = self.create_Sport("sport1")
+		dat = datetime.date.today()
+		user = User.objects.create(username='Organizer1', email='Organizer1@email.com')
+		org = Organizer(name="organizer1", user = user)
+		org.save()
+		org.sports.add(spo)
+		ev = Event(name="Event1", organizer = org, date = dat)
+		ev.save()
+		ev.sports.add(spo)
+		spo.events.add(ev)
+		
+		self.assertTrue(isinstance(spo, Sport))
+				
+	def test_Sport_volNotNull(self):
+		spo = self.create_Sport("sport1")
+		user = User.objects.create(username='Volunteer1', email='Volunteer1@email.com')
+		vol = Volunteer(name = "volunteer1", user = user)
+		vol.save()
+		spo.volunteers.add(vol)
+		
+		self.assertTrue(isinstance(spo, Sport))
+				
+	def test_Sport_organizerNotNull(self):
+		spo = self.create_Sport("Sport1")
+		user = User.objects.create(username='Organizer1', email='Organizer1@email.com')
+		org = Organizer(name="organizer1", user = user)
+		org.save()
+		org.sports.add(spo)
+		spo.organizers.add(org)		
+
+		self.assertTrue(isinstance(spo, Sport))
+
+class EventVolunteerTest(TestCase):
+	
+	def create_EventVolunteer(self, experience):
+		sport = Sport.objects.create(name = 'sport1')
+		dat = datetime.date.today()
+		user = User.objects.create(username='Organizer1', email='Organizer1@email.com')
+		org = Organizer(name="organizer1", user = user)
+		org.save()
+		org.sports.add(sport)
+		ev = Event(name="Event1", organizer = org, date = dat)
+		ev.save()
+		ev.sports.add(sport)
+		evVol = EventVolunteer(state = "AWAKENING", event=ev , experience=experience)
+		evVol.save()
+		return evVol
+
+	def test_EventVolunteer_experienceShort(self):
+		evVol = self.create_EventVolunteer("Experience 1")
+		
+		self.assertTrue(isinstance(evVol, EventVolunteer))
+		self.assertEqual(evVol.__unicode__(), evVol.state)
+
+	def test_EventVolunteer_experienceLong(self):
+		self.assertRaises(Warning, self.create_EventVolunteer, "this is a really long experience , this is a really long experience , this is a really long experience , this is a really long experiencethis is a really long experience , this is a really long experiencethis is a really long experience , this is a really long experiencethis is a really long experience , this is a really long experience , this is a really long experience , this is a really long experience , this is a really long experience , this is a really long experience")
+		
+	def test_EventVolunteer_experienceNull(self):
+		evVol = self.create_EventVolunteer(None)
+		
+		self.assertTrue(isinstance(evVol, EventVolunteer))
+		
+	def create_EventVolunteer_stateNull(self):
+		return EventVolunteer.objects.create(valuation=5, experience="great")
+		
+	def test_EventVolunteer_stateNull(self):
+		self.assertRaises(Exception, self.create_EventVolunteer_stateNull)
+
+	def test_EventVolunteer_volNotNull(self):
+		evVol = self.create_EventVolunteer("EventVolunteer1")
+		userVol = User.objects.create(username='Volunteer1', email='volunteer1@email.com')
+		vol = Volunteer(name="volunter1", user=userVol)
+		vol.save()
+		evVol.volunteers.add(vol)
+		
+		self.assertTrue(isinstance(evVol, EventVolunteer))
+		
+	def create_EventVolunteer_EventNull(self):
+		evVol = EventVolunteer(state = "AWAKENING")
+		evVol.save()
+		return evVol
+		
+	def test_EventVolunteer_EventNull(self):
+		self.assertRaises(Exception, self.create_EventVolunteer_EventNull)		
+
+

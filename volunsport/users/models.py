@@ -46,8 +46,8 @@ class Event(models.Model):
 class EventVolunteer(models.Model):
 	
 	state = models.CharField(max_length=10, choices=STATES)
-	valuation = models.PositiveIntegerField()
-	experience = models.CharField(max_length=256)
+	valuation = models.PositiveIntegerField(null=True)
+	experience = models.CharField(max_length=256 , null=True)
 	
 	event = models.ForeignKey('Event')
 	volunteers = models.ManyToManyField('Volunteer', null=True)
